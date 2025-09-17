@@ -2,11 +2,33 @@ import { config } from 'dotenv';
 
 config();
 
+/**
+ * Env class provides static accessors for environment variables used throughout the application.
+ * It loads variables using dotenv and exposes them as static readonly properties.
+ *
+ * - Handles type conversion for numbers and booleans where appropriate.
+ * - Provides utility methods for cleaning and retrieving environment variables.
+ * - Intended for use as a central configuration point for environment-dependent values.
+ *
+ * Example usage:
+ *   const domain = Env.DOMAIN;
+ *   const timeout = Env.PAGE_LOAD_TIMEOUT;
+ */
 export default class Env {
+  /**
+   * Cleans a URL string by replacing encoded colons (\x3a) with ':'
+   * @param url - The URL string to clean
+   * @returns The cleaned URL string
+   */
   private static cleanUrl(url: string): string {
     return url ? url.replace(/\\x3a/g, ':') : '';
   }
 
+  /**
+   * Retrieves an environment variable by name, returning an empty string if not set.
+   * @param name - The name of the environment variable
+   * @returns The value of the environment variable or an empty string
+   */
   private static getEnvVar(name: string): string {
     const value: string = process.env[name] || '';
     return value;
