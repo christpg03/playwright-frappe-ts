@@ -11,10 +11,10 @@ config();
  * - Intended for use as a central configuration point for environment-dependent values.
  *
  * Example usage:
- *   const domain = Env.DOMAIN;
- *   const timeout = Env.PAGE_LOAD_TIMEOUT;
+ *   const domain = ENV.DOMAIN;
+ *   const timeout = ENV.PAGE_LOAD_TIMEOUT;
  */
-export default class Env {
+export default class ENV {
   /**
    * Cleans a URL string by replacing encoded colons (\x3a) with ':'
    * @param url - The URL string to clean
@@ -35,24 +35,24 @@ export default class Env {
   }
 
   // common environment URLs
-  public static readonly ENV: string = Env.getEnvVar('ENV');
-  public static readonly DOMAIN: string = Env.getEnvVar('DOMAIN');
+  public static readonly ENV: string = ENV.getEnvVar('ENV');
+  public static readonly DOMAIN: string = ENV.getEnvVar('DOMAIN');
   public static readonly CONCATENATED_URL: string =
-    Env.cleanUrl(Env.getEnvVar('ENV')) + Env.cleanUrl(Env.getEnvVar('DOMAIN'));
+    ENV.cleanUrl(ENV.getEnvVar('ENV')) + ENV.cleanUrl(ENV.getEnvVar('DOMAIN'));
 
-  public static readonly BROWSER: string = Env.getEnvVar('BROWSER');
-  public static readonly HEADLESS: string = Env.getEnvVar('HEADLESS');
-  public static readonly DEBUG_MODE: number = parseInt(Env.getEnvVar('DEBUG_MODE')) || 0;
+  public static readonly BROWSER: string = ENV.getEnvVar('BROWSER');
+  public static readonly HEADLESS: string = ENV.getEnvVar('HEADLESS');
+  public static readonly DEBUG_MODE: number = parseInt(ENV.getEnvVar('DEBUG_MODE')) || 0;
 
   public static readonly PAGE_LOAD_TIMEOUT: number =
-    parseInt(Env.getEnvVar('PAGE_LOAD_TIMEOUT')) || 60000;
+    parseInt(ENV.getEnvVar('PAGE_LOAD_TIMEOUT')) || 60000;
   public static readonly OBJECT_LOAD_TIMEOUT: number =
-    parseInt(Env.getEnvVar('OBJECT_LOAD_TIMEOUT')) || 10000;
+    parseInt(ENV.getEnvVar('OBJECT_LOAD_TIMEOUT')) || 10000;
 
   /* // TODO
   public static readonly ERASE_COOKIES_AFTER_TESTING: boolean =
-    Env.getEnvVar('ERASE_COOKIES_AFTER_TESTING') === 'true' ||
-    Env.getEnvVar('ERASE_COOKIES_AFTER_TESTING') === undefined;
+    ENV.getEnvVar('ERASE_COOKIES_AFTER_TESTING') === 'true' ||
+    ENV.getEnvVar('ERASE_COOKIES_AFTER_TESTING') === undefined;
   
   
   // experimental environment URLs
@@ -67,18 +67,18 @@ export default class Env {
       return [];
     }
   })();
-  public static readonly BRANCH: string = Env.getEnvVar('BRANCH') || '';
+  public static readonly BRANCH: string = ENV.getEnvVar('BRANCH') || '';
   public static readonly CSV_LANGUAGE_PATH: unknown = (() => {
     try {
-      const envValue = Env.getEnvVar('CSV_LANGUAGE_PATH');
+      const envValue = ENV.getEnvVar('CSV_LANGUAGE_PATH');
       return envValue ? JSON.parse(envValue) : [];
     } catch {
       return [];
     }
   })();
   //      GitHub integration
-  public static readonly GITHUB_TOKEN: string = Env.getEnvVar('GITHUB_TOKEN') || '';
+  public static readonly GITHUB_TOKEN: string = ENV.getEnvVar('GITHUB_TOKEN') || '';
   //      path log
-  public static readonly PATH_LOG: string = Env.getEnvVar('PATH_LOG') || 'logs';
+  public static readonly PATH_LOG: string = ENV.getEnvVar('PATH_LOG') || 'logs';
   */
 }
