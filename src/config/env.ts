@@ -43,9 +43,7 @@ type CustomEnv = typeof baseEnv & {
  * console.log(ENV.CONCATENATED_URL); // Clean URL combining ENV + DOMAIN
  * ```
  */
-const ENV: CustomEnv = {
+export const ENV: CustomEnv = {
   ...baseEnv,
   CONCATENATED_URL: cleanUrl(baseEnv.ENV + baseEnv.DOMAIN),
 };
-
-export default ENV;

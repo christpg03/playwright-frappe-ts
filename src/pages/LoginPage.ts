@@ -1,7 +1,7 @@
 import type { Locator, Page } from '@playwright/test';
 
-import ENV from '../config/env';
-import URLs from '../config/url';
+import { ENV } from '../config/env';
+import { URLs } from '../config/url';
 
 import type { AuthProvider, Credentials } from '../types/Auth';
 import { AppsPage } from './AppsPage';

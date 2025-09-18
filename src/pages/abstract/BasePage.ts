@@ -1,7 +1,7 @@
 import { expect } from '@playwright/test';
 import type { Page } from '@playwright/test';
 
-import ENV from '../../config/env';
+import { ENV } from '../../config/env';
 
 /**
  * Abstract base class for Playwright page objects.

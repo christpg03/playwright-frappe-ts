@@ -1,8 +1,8 @@
 import { expect } from '@playwright/test';
 import type { Locator, Page } from '@playwright/test';
 
-import ENV from '../config/env';
-import URLs from '../config/url';
+import { ENV } from '../config/env';
+import { URLs } from '../config/url';
 
 import { BasePage } from './abstract/BasePage';
 

@@ -1,6 +1,6 @@
 import type { Page } from '@playwright/test';
 
-import URLs from '../config/url';
+import { URLs } from '../config/url';
 
 import { BasePage } from './abstract/BasePage';
 

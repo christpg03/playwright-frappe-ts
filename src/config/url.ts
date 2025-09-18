@@ -1,6 +1,6 @@
-import ENV from './env';
+import { ENV } from './env';
 
-export default class URLs {
+export class URLs {
   private static readonly URL: string = ENV.CONCATENATED_URL;
 
   // authentication
