@@ -1,4 +1,4 @@
-import { Locator } from '@playwright/test';
+import type { Locator } from '@playwright/test';
 
 /**
  * Base class for custom errors in the Playwright-Frappe suite.
