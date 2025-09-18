@@ -1,5 +1,5 @@
 import { config } from 'dotenv';
-import envalid, { str, num, bool } from 'envalid';
+import { cleanEnv, str, num, bool } from 'envalid';
 
 import { cleanUrl } from '../helpers/utils';
 
@@ -9,7 +9,7 @@ config();
  * Base environment variables validation schema using envalid
  * Validates and provides defaults for core application configuration
  */
-const baseEnv = envalid.cleanEnv(process.env, {
+const baseEnv = cleanEnv(process.env, {
   ENV: str(),
   DOMAIN: str(),
   BROWSER: str({ choices: ['chromium', 'firefox', 'webkit'], default: 'chromium' }),
