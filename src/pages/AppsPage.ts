@@ -1,7 +1,7 @@
 import { expect } from '@playwright/test';
 import type { Locator, Page } from '@playwright/test';
 
-import Env from '../config/env';
+import ENV from '../config/env';
 import URLs from '../config/url';
 
 import { BasePage } from './abstract/BasePage';
@@ -38,7 +38,7 @@ export class AppsPage extends BasePage {
    * @return {Promise<void>} A promise that resolves when the button is clicked and the page navigates to the home page.
    */
   async clickErpButton(): Promise<void> {
-    await this.buttonERP.waitFor({ timeout: Env.OBJECT_LOAD_TIMEOUT });
+    await this.buttonERP.waitFor({ timeout: ENV.OBJECT_LOAD_TIMEOUT });
     await this.buttonERP.click();
     await expect(this.page).toHaveURL(URLs.MOD_HOME);
   }
