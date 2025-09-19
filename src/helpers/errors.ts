@@ -95,3 +95,19 @@ export class LocatorImmutabilityError extends PlaywrightFrappeError {
     );
   }
 }
+
+/**
+ * Error thrown when trying to interact with a disabled component.
+ * Extends PlaywrightFrappeError for component state-specific errors.
+ */
+export class ComponentDisabledError extends PlaywrightFrappeError {
+  /**
+   * Creates a new instance of ComponentDisabledError.
+   * @param componentName - Name of the component that is disabled.
+   * @param action - The action that was attempted (optional).
+   */
+  constructor(componentName: string, action?: string) {
+    const actionText = action ? ` ${action}` : '';
+    super(`Cannot ${actionText}: Component "${componentName}" is disabled.`);
+  }
+}
