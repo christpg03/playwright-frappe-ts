@@ -1,4 +1,4 @@
-import type { Locator } from '@playwright/test';
+import type { Locator, Page } from '@playwright/test';
 
 import { ENV } from '../../config';
 import {
@@ -12,10 +12,17 @@ export abstract class BaseComponent {
   private _locator: Locator;
   private _parent?: BaseComponent;
   private _locatorString?: string;
+  public page: Page;
 
-  constructor(locator: Locator, parent?: BaseComponent) {
-    this._locator = locator;
+  constructor(page: Page, locator: Locator, parent?: BaseComponent) {
+    this.page = page;
     this._parent = parent;
+
+    if (parent) {
+      this._locator = parent.locator.locator(locator);
+    } else {
+      this._locator = locator;
+    }
   }
 
   get locator(): Locator {
