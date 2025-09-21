@@ -4,6 +4,7 @@ import { EnableableComponent } from '../abstracts/EnableableComponent';
 import { IAutoFillable } from '../interfaces/IAutoFillable';
 import { Strategy } from '../../types/Components';
 
+// TODO: Add a method to compare the field label with the label displayed in the system
 export class LabeledInputComponent extends EnableableComponent implements IAutoFillable {
   private label: string;
   private strategy: Strategy;
