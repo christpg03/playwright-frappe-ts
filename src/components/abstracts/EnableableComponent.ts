@@ -25,10 +25,11 @@ export abstract class EnableableComponent extends BaseComponent {
    *
    * @param {Page} page - The Playwright page instance.
    * @param {Locator} locator - The Playwright locator for this component.
+   * @param {BaseComponent} [parent] - Optional parent component for hierarchical nesting.
    * @param {boolean} [enabled=true] - Whether the component should be enabled initially.
    */
-  constructor(page: Page, locator: Locator, enabled: boolean = true) {
-    super(page, locator);
+  constructor(page: Page, locator: Locator, parent?: BaseComponent, enabled: boolean = true) {
+    super(page, locator, parent);
     this.enabled = enabled;
   }
 
