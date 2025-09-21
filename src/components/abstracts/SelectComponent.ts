@@ -14,8 +14,11 @@ import { toLowerSnakeCase } from '../../helpers/utils';
  * by key (snake_case), index, or random selection, and automatically handles option
  * caching and validation.
  *
- * @extends EnableableComponent
- * @implements ISelectable
+ * @abstract
+ * @class SelectComponent
+ * @extends {EnableableComponent}
+ * @implements {ISelectable}
+ * @property {Record<string, string>} _options - Cached options data as key-value pairs where keys are snake_case versions of option values and values are the display text.
  */
 export class SelectComponent extends EnableableComponent implements ISelectable {
   /**
@@ -25,12 +28,15 @@ export class SelectComponent extends EnableableComponent implements ISelectable 
   private _options?: Record<string, string>;
 
   /**
-   * Creates a new SelectComponent instance.
+   * Initializes a new SelectComponent instance.
    *
-   * @param page - The Playwright page instance
-   * @param locator - The Playwright locator for the select element
-   * @param parent - Optional parent component for hierarchy management
-   * @param enabled - Whether the component is initially enabled (default: true)
+   * Creates a select component with a Playwright locator and optional enabled state.
+   * Components are enabled by default unless explicitly disabled.
+   *
+   * @param {Page} page - The Playwright page instance.
+   * @param {Locator} locator - The Playwright locator for the select element.
+   * @param {BaseComponent} [parent] - Optional parent component for hierarchical nesting.
+   * @param {boolean} [enabled=true] - Whether the component is initially enabled.
    */
   constructor(page: Page, locator: Locator, parent?: BaseComponent, enabled = true) {
     super(page, locator, parent, enabled);
@@ -43,7 +49,7 @@ export class SelectComponent extends EnableableComponent implements ISelectable 
    * to snake_case keys, and caches the results for subsequent calls. Empty options
    * (common placeholder options) are automatically filtered out.
    *
-   * @returns Promise that resolves to a record of snake_case keys mapped to option display text
+   * @returns {Promise<Record<string, string>>} A promise that resolves to a record of snake_case keys mapped to option display text.
    *
    * @example
    * ```typescript
@@ -77,7 +83,7 @@ export class SelectComponent extends EnableableComponent implements ISelectable 
   /**
    * Gets the currently selected value from the select element.
    *
-   * @returns Promise that resolves to the value attribute of the selected option
+   * @returns {Promise<string>} A promise that resolves to the value attribute of the selected option.
    *
    * @example
    * ```typescript
@@ -100,9 +106,10 @@ export class SelectComponent extends EnableableComponent implements ISelectable 
    * The method automatically opens the dropdown, validates the selection,
    * and handles error cases with descriptive error messages.
    *
-   * @param value - The selection value: string (key), number (index), or undefined (random)
-   * @throws {ComponentDisabledError} When the component is disabled
-   * @throws {SelectionError} When selection fails due to invalid parameters or missing options
+   * @param {string | number} [value] - The selection value: string (key), number (index), or undefined (random).
+   * @returns {Promise<void>} A promise that resolves when the selection operation is complete.
+   * @throws {ComponentDisabledError} When the component is disabled.
+   * @throws {SelectionError} When selection fails due to invalid parameters or missing options.
    *
    * @example
    * ```typescript
