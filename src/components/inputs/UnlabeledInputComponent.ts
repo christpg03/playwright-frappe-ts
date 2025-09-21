@@ -1,5 +1,6 @@
 import type { Page } from '@playwright/test';
 
+import { IFieldNameValidator } from '../interfaces/IFieldNameValidator';
 import { InputComponent } from '../abstracts/InputComponent';
 import { StrategyConfig } from '../../types/Components';
 
@@ -19,8 +20,8 @@ import { StrategyConfig } from '../../types/Components';
  * @extends {InputComponent}
  * @property {string} placeholder - The placeholder text for the input field.
  */
-// TODO: Add a method to compare the field placeholder with the placeholder displayed in the system
-export class UnlabeledInputComponent extends InputComponent {
+// TODO: Add a method to validate that the data-fieldname attribute matches the configured dataFieldName
+export class UnlabeledInputComponent extends InputComponent implements IFieldNameValidator {
   private placeholder: string;
 
   /**
@@ -52,15 +53,16 @@ export class UnlabeledInputComponent extends InputComponent {
   }
 
   /**
-   * Asserts that the component's placeholder matches the expected placeholder.
+   * Validates and asserts that the field name is correctly configured.
    *
-   * This method is intended to validate that the placeholder displayed in the UI
-   * matches the placeholder configured for this component instance.
+   * This method is intended to validate that the data-fieldname attribute
+   * in the DOM matches the dataFieldName parameter used to construct this component.
+   * It ensures the component is properly configured to target the correct input field.
    *
    * @throws {Error} Currently throws "Method not implemented." as this is a placeholder.
-   * @todo Implement placeholder assertion logic to compare field placeholder with displayed system placeholder.
+   * @todo Implement field name validation logic to compare the component's dataFieldName with the actual data-fieldname attribute in the DOM.
    */
-  assertLabel() {
+  assertFieldName() {
     throw new Error('Method not implemented.');
   }
 }
