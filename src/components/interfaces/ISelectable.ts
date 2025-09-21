@@ -2,41 +2,40 @@
  * Interface for components that can be selected from options.
  *
  * Provides selection functionality for components such as dropdowns, select boxes,
- * multi-select lists, or any components that allow choosing from predefined options.
- * Supports both single and multiple selection modes.
+ * and other components that allow choosing from predefined options.
+ * This interface is designed for single-select components.
  *
  * @interface ISelectable
  */
 export interface ISelectable {
   /**
-   * Selects one or more options from the component.
+   * Selects an option from the component.
    *
-   * For single-select components, provide a single string value.
-   * For multi-select components, provide an array of strings.
-   * The behavior depends on the component's selection mode.
-   *
-   * @param {string | string[]} value - The option(s) to select. Can be a single value or array of values.
+   * @param {string | number} [value] - The option to select. Can be:
+   *   - A string: the lower_snake_case key of the option
+   *   - A number: the index of the option (0-based)
+   *   - undefined/null: selects a random option
    * @returns {Promise<void>} A promise that resolves when the selection operation is complete.
    */
-  select(value: string | string[]): Promise<void>;
+  selectValue(value?: string | number): Promise<void>;
 
   /**
-   * Retrieves the currently selected value(s) from the component.
+   * Retrieves the currently selected value from the component.
    *
-   * Returns a single string for single-select components or an array of strings
-   * for multi-select components.
+   * Returns the input value of the selected option.
    *
-   * @returns {Promise<string | string[]>} A promise that resolves to the selected value(s).
+   * @returns {Promise<string>} A promise that resolves to the selected value.
    */
-  getSelectedValue(): Promise<string | string[]>;
+  getSelectedValue(): Promise<string>;
 
   /**
    * Retrieves all available options from the component.
    *
-   * Returns an array of all selectable options present in the component,
-   * regardless of their current selection state.
+   * Returns a record mapping lower_snake_case keys to their display text values.
+   * Empty options are automatically filtered out.
    *
-   * @returns {Promise<string[]>} A promise that resolves to an array of all available option values.
+   * @returns {Promise<Record<string, string>>} A promise that resolves to a record of all available options,
+   *   where keys are lower_snake_case versions of option values and values are the display text.
    */
-  getOptions(): Promise<string[]>;
+  getOptions(): Promise<Record<string, string>>;
 }
