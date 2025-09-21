@@ -23,7 +23,7 @@ export class PlaywrightFrappeError extends Error {
 export class VisibilityError extends PlaywrightFrappeError {
   /**
    * Creates a new instance of VisibilityError.
-   * @param selector - Selector of the element that was not visible.
+   * @param selector - The Playwright locator of the element that was not visible.
    * @param timeout - Timeout in milliseconds before throwing the error.
    */
   constructor(selector: Locator, timeout: number) {
@@ -62,11 +62,15 @@ export class ComponentHierarchyError extends PlaywrightFrappeError {
   }
 }
 
+/**
+ * Error thrown when an invalid locator string is provided.
+ * Extends PlaywrightFrappeError for locator validation errors.
+ */
 export class InvalidLocatorError extends PlaywrightFrappeError {
   /**
    * Creates a new instance of InvalidLocatorError.
    * @param locatorString - The invalid locator string that was provided.
-   * @param reason - Additional reason for why the locator is invalid.
+   * @param reason - Additional reason for why the locator is invalid (optional).
    */
   constructor(locatorString: string, reason?: string) {
     const message = reason
@@ -107,7 +111,95 @@ export class ComponentDisabledError extends PlaywrightFrappeError {
    * @param action - The action that was attempted (optional).
    */
   constructor(componentName: string, action?: string) {
-    const actionText = action ? ` ${action}` : '';
-    super(`Cannot ${actionText}: Component "${componentName}" is disabled.`);
+    const actionText = action ? ` perform action "${action}"` : ' perform action';
+    super(`Cannot${actionText}: Component "${componentName}" is disabled.`);
+  }
+}
+
+/**
+ * Error thrown when selection operations fail in selectable components.
+ * Extends PlaywrightFrappeError for selection-specific errors.
+ */
+export class SelectionError extends PlaywrightFrappeError {
+  /**
+   * Creates a new instance of SelectionError.
+   * @param componentName - Name of the component where selection failed.
+   * @param operation - The selection operation that failed.
+   * @param details - Additional details about the error (optional).
+   */
+  constructor(componentName: string, operation: string, details?: string) {
+    const detailsText = details ? `: ${details}` : '';
+    super(`Selection failed in component "${componentName}" during ${operation}${detailsText}`);
+  }
+
+  /**
+   * Creates a SelectionError for when no options are available.
+   * @param componentName - Name of the component.
+   * @returns SelectionError instance.
+   */
+  static noOptionsAvailable(componentName: string): SelectionError {
+    return new SelectionError(componentName, 'option selection', 'No options available to select');
+  }
+
+  /**
+   * Creates a SelectionError for when an option key is not found.
+   * @param componentName - Name of the component.
+   * @param key - The key that was not found.
+   * @param availableKeys - Array of available keys.
+   * @returns SelectionError instance.
+   */
+  static optionKeyNotFound(
+    componentName: string,
+    key: string,
+    availableKeys: string[],
+  ): SelectionError {
+    return new SelectionError(
+      componentName,
+      'key selection',
+      `Option with key "${key}" not found. Available keys: ${availableKeys.join(', ')}`,
+    );
+  }
+
+  /**
+   * Creates a SelectionError for when an option index is out of range.
+   * @param componentName - Name of the component.
+   * @param index - The index that was out of range.
+   * @param maxIndex - The maximum valid index.
+   * @returns SelectionError instance.
+   */
+  static indexOutOfRange(componentName: string, index: number, maxIndex: number): SelectionError {
+    return new SelectionError(
+      componentName,
+      'index selection',
+      `Option index ${index} is out of range. Available indices: 0-${maxIndex}`,
+    );
+  }
+
+  /**
+   * Creates a SelectionError for invalid value types.
+   * @param componentName - Name of the component.
+   * @param receivedType - The type that was received.
+   * @returns SelectionError instance.
+   */
+  static invalidValueType(componentName: string, receivedType: string): SelectionError {
+    return new SelectionError(
+      componentName,
+      'value validation',
+      `Value must be a string (key), number (index), or undefined (random). Received: ${receivedType}`,
+    );
+  }
+
+  /**
+   * Creates a SelectionError for when original value cannot be found.
+   * @param componentName - Name of the component.
+   * @param targetKey - The target key that couldn't be resolved.
+   * @returns SelectionError instance.
+   */
+  static originalValueNotFound(componentName: string, targetKey: string): SelectionError {
+    return new SelectionError(
+      componentName,
+      'value resolution',
+      `Could not find original value for key "${targetKey}"`,
+    );
   }
 }
