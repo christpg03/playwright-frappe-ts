@@ -1,5 +1,6 @@
 import type { Page } from '@playwright/test';
 
+import { IFieldNameValidator } from '../interfaces/IFieldNameValidator';
 import { InputComponent } from '../abstracts/InputComponent';
 import { StrategyConfig } from '../../types/Components';
 
@@ -20,7 +21,7 @@ import { StrategyConfig } from '../../types/Components';
  * @property {string} label - The display label for the input field.
  */
 // TODO: Add a method to compare the field label with the label displayed in the system
-export class LabeledInputComponent extends InputComponent {
+export class LabeledInputComponent extends InputComponent implements IFieldNameValidator {
   private label: string;
 
   /**
@@ -57,7 +58,7 @@ export class LabeledInputComponent extends InputComponent {
   }
 
   /**
-   * Asserts that the component's label matches the expected label.
+   * Validates and asserts that the component's label matches the expected label.
    *
    * This method is intended to validate that the label displayed in the UI
    * matches the label configured for this component instance.
@@ -65,7 +66,7 @@ export class LabeledInputComponent extends InputComponent {
    * @throws {Error} Currently throws "Method not implemented." as this is a placeholder.
    * @todo Implement label assertion logic to compare field label with displayed system label.
    */
-  assertLabel() {
+  assertFieldName() {
     throw new Error('Method not implemented.');
   }
 }
