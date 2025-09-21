@@ -17,3 +17,12 @@
  * ```
  */
 export type Strategy = (...args: any[]) => string;
+
+/**
+ * Type for strategy configuration that can include parameters.
+ * Allows strategies to be configured with specific parameters at component initialization.
+ */
+export type StrategyConfig = {
+  strategy: Strategy;
+  params?: any[];
+};
