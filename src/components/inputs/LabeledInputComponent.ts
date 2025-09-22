@@ -179,6 +179,9 @@ export class LabeledInputComponent extends InputComponent implements IFieldNameV
    * ```
    */
   assertFieldName() {
+    console.log(
+      `Asserting field name for LabeledInputComponent with label: ${this.label}`,
+    );
     throw new Error('Method not implemented.');
   }
 }

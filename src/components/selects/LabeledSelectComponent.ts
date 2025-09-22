@@ -71,6 +71,7 @@ export class LabeledSelectComponent extends SelectComponent implements IFieldNam
    * @returns {void}
    */
   assertFieldName() {
+    console.log(`Asserting field name for LabeledSelectComponent with label: ${this.label}`);
     throw new Error('Method not implemented.');
   }
 }

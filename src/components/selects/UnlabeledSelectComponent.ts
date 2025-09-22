@@ -66,6 +66,9 @@ export class UnlabeledSelectComponent extends SelectComponent implements IFieldN
    * @returns {void}
    */
   assertFieldName() {
+    console.log(
+      `Asserting field name for UnlabeledSelectComponent with placeholder: ${this.placeholder}`,
+    );
     throw new Error('Method not implemented.');
   }
 }

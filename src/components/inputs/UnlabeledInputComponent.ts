@@ -98,6 +98,9 @@ export class UnlabeledInputComponent extends InputComponent implements IFieldNam
    * ```
    */
   assertFieldName() {
+    console.log(
+      `Asserting field name for UnlabeledInputComponent with placeholder: ${this.placeholder}`,
+    );
     throw new Error('Method not implemented.');
   }
 }
